@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Details - Word Cloud Generator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        function showLoadingMessage() {
+            document.getElementById("loadingMessage").style.display = "block";
+        }
+
+        function confirmGenerate() {
+            var selectedDetail = document.querySelector('input[name="detailKeyword"]:checked');
+            if (!selectedDetail) {
+                alert("Please select a detailed keyword.");
+                return;
+            }
+
+            var selectedDate = document.getElementById("selectedDate").value;
+            var confirmMessage = "Are you sure you want to generate the word cloud for the keyword '" + selectedDetail.value + "' on the date '" + selectedDate + "'?";
+
+            var confirmed = confirm(confirmMessage);
+            if (confirmed) {
+                showLoadingMessage();
+                document.getElementById("generateForm").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Select Detailed Keywords for <span th:text="${selectedKeyword}"></span></h1>
+<form id="generateForm" action="/generate" method="post">
+    <input type="hidden" name="keyword" th:value="${selectedKeyword}">
+
+    <fieldset>
+        <legend>Choose Detailed Keywords</legend>
+        <th:block th:each="detail : ${detailKeywords}">
+            <label>
+                <input type="radio" th:name="detailKeyword" th:value="${detail}">
+                <span th:text="${detail}"></span>
+            </label>
+        </th:block>
+    </fieldset>
+
+    <label for="selectedDate">Select Date:</label>
+    <input type="date" id="selectedDate" name="date">
+
+    <button type="button" onclick="confirmGenerate();">Generate Word Cloud</button>
+</form>
+
+<div id="loadingMessage" style="display: none;">Please wait while the word cloud is being generated...</div>
+</body>
+</html>

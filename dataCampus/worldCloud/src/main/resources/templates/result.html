@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Word Cloud Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Word Cloud Result</h1>
+
+<!-- Display the generated word cloud image -->
+<img th:if="${imageResponseEntity}" th:src="@{/displayImage}" alt="Generated Word Cloud" style="max-width: 30%; height: auto;">
+
+<!-- Save and Go Back buttons -->
+<form action="/save" method="get">
+    <input type="hidden" name="imagePath" th:value="${imagePath}">
+    <button type="submit">Save Word Cloud</button>
+</form>
+
+<form action="/" method="get">
+    <button type="submit">Back to Home</button>
+</form>
+</body>
+</html>
