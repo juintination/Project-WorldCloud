@@ -4,20 +4,72 @@
     <title>Word Cloud Result</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<h1>Word Cloud Result</h1>
+<style>
+    body{
+        font-family: 나눔고딕코딩;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #3f9bfd;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+    .home {
+        background-color: #3f9bfd;
+        color: #fff;
+        font-size: 30px;
+        border: none;
+        font-family: "Bauhaus 93";
+        margin-top: 15px;
+        text-align: center;
+    }
+    .container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 500px;
+    }
+    .btn1, .btn2 {
+        margin-top: 20px;
+        width: 100%;
+        font-size: 18px;
+        background-color: #65b0ff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-<!-- Display the generated word cloud image -->
-<img th:if="${imageResponseEntity}" th:src="@{/displayImage}" alt="Generated Word Cloud" style="max-width: 30%; height: auto;">
+    .btn1:hover, .btn2:hover {
+        background-color: #3f9bfd;
+    }
+
+</style>
+<body>
+<header>
+    <form action="/" method="get">
+        <button class="home" type="submit">World Cloud</button>
+    </form>
+</header>
+<div class="container">
+<img th:if="${imageResponseEntity}" th:src="@{/displayImage}" alt="Generated Word Cloud" style="max-width: 100%; height: auto;">
 
 <!-- Save and Go Back buttons -->
 <form action="/save" method="get">
     <input type="hidden" name="imagePath" th:value="${imagePath}">
-    <button type="submit">Save Word Cloud</button>
+    <button type="submit" class="btn1">World Cloud 저장</button>
 </form>
 
 <form action="/" method="get">
-    <button type="submit">Back to Home</button>
+    <button type="submit" class="btn2">처음으로 돌아가기</button>
 </form>
+</div>
 </body>
 </html>

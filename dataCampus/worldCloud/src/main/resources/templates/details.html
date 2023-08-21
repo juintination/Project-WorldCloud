@@ -1,53 +1,192 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Details - Word Cloud Generator</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Details - Word Cloud Generator</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <script type="text/javascript">
-        function showLoadingMessage() {
-            document.getElementById("loadingMessage").style.display = "block";
-        }
+  <script type="text/javascript">
+    function getCurrentDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      let month = (now.getMonth() + 1).toString().padStart(2, '0');
+      let day = now.getDate().toString().padStart(2, '0');
 
-        function confirmGenerate() {
-            var selectedDetail = document.querySelector('input[name="detailKeyword"]:checked');
-            if (!selectedDetail) {
-                alert("Please select a detailed keyword.");
-                return;
-            }
+      return `${year}-${month}-${day}`;
+    }
 
-            var selectedDate = document.getElementById("selectedDate").value;
-            var confirmMessage = "Are you sure you want to generate the word cloud for the keyword '" + selectedDetail.value + "' on the date '" + selectedDate + "'?";
+    window.addEventListener('load', function () {
+      const selectedDateInput = document.getElementById('selectedDate');
+      selectedDateInput.setAttribute('max', getCurrentDate());
+    });
 
-            var confirmed = confirm(confirmMessage);
-            if (confirmed) {
-                showLoadingMessage();
-                document.getElementById("generateForm").submit();
-            }
-        }
-    </script>
+    document.getElementById('selectedDate').setAttribute('max', getCurrentDate());
+    function showLoadingMessage() {
+      document.getElementById("loadingMessage").style.display = "block";
+    }
+
+    function confirmGenerate() {
+      var selectedDetail = document.querySelector('input[name="detailKeyword"]:checked');
+      if (!selectedDetail) {
+        alert("키워드를 선택해주세요.");
+        return;
+      }
+      var selectedDate = document.getElementById("selectedDate").value;
+      if (!selectedDate) {
+        var confirmMessage = "정말로 오늘 날짜의 "+ selectedDetail.value + "을(를) World Cloud 하겠습니까?";
+      }
+      else{
+        var confirmMessage = "정말로 " +selectedDate+ " 의 날짜에 있는 "+ selectedDetail.value + "을(를) World Cloud 하겠습니까?";
+      }
+      var confirmed = confirm(confirmMessage);
+      if (confirmed) {
+        showLoadingMessage();
+        document.getElementById("generateForm").submit();
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 나눔고딕코딩;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    p {
+      font-size: 14px;
+      color: gray;
+    }
+    header {
+      background-color: #3f9bfd;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .home {
+      background-color: #3f9bfd;
+      color: #fff;
+      font-size: 30px;
+      border: none;
+      font-family: "Bauhaus 93";
+      margin-top: 15px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: row; /* 가로로 배치 */
+      flex-wrap: wrap; /* 너비가 넘치면 다음 줄로 넘김 */
+    }
+
+    .radio-label {
+      margin-right: 20px; /* 각 라디오 버튼 간 간격 설정 */
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    label[for="selectedDate"] {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      font-size: 18px;
+      background-color: #65b0ff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #3f9bfd;
+    }
+    .dateText{
+      font-size: 18px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    #loadingMessage {
+      text-align: center;
+      display: none;
+      margin-top: 20px;
+    }
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap; /* 너비가 넘치면 다음 줄로 넘김 */
+      justify-content: flex-start; /* 왼쪽 정렬 */
+    }
+
+    /* .radio-label의 margin-right 제거 */
+    .radio-label {
+      display: inline-block; /* 라디오 버튼과 라벨을 한 줄에 표시 */
+      margin-right: 20px; /* 간격 설정 */
+      margin-bottom: 5px;
+    }
+
+    /* 라디오 버튼의 여백 설정 */
+    input[type="radio"] {
+      margin: 0; /* 기본 마진 제거 */
+    }
+  </style>
 </head>
 <body>
-<h1>Select Detailed Keywords for <span th:text="${selectedKeyword}"></span></h1>
-<form id="generateForm" action="/generate" method="post">
+<header>
+  <form action="/" method="get">
+    <button class="home" type="submit">World Cloud</button>
+  </form>
+</header>
+<div class="container">
+  <h2>소주제를 입력하세요 !</h2>
+  <form id="generateForm" action="/generate" method="post">
     <input type="hidden" name="keyword" th:value="${selectedKeyword}">
 
-    <fieldset>
-        <legend>Choose Detailed Keywords</legend>
-        <th:block th:each="detail : ${detailKeywords}">
-            <label>
-                <input type="radio" th:name="detailKeyword" th:value="${detail}">
-                <span th:text="${detail}"></span>
-            </label>
-        </th:block>
-    </fieldset>
+    <div class="radio-group">
+      <th:block th:each="detail : ${detailKeywords}">
+        <label class="radio-label">
+          <input type="radio" th:name="detailKeyword" th:value="${detail}">
+          <span th:text="${detail}"></span>
+        </label>
+      </th:block>
+    </div>
+    <br>
+    <label class="dateText" for="selectedDate">날짜를 선택해주세요 !</label>
+    <br/>
+    <input type="date" id="selectedDate" name="date" min="2023-01-04" max="">
+    <p>선택하지 않으면 오늘날짜로 설정됩니다.</p>
 
-    <label for="selectedDate">Select Date:</label>
-    <input type="date" id="selectedDate" name="date">
+    <button type="button" class="btn" onclick="confirmGenerate();">워드클라우드 생성</button>
+  </form>
 
-    <button type="button" onclick="confirmGenerate();">Generate Word Cloud</button>
-</form>
-
-<div id="loadingMessage" style="display: none;">Please wait while the word cloud is being generated...</div>
+  <div id="loadingMessage">잠시만 기다려주세요...</div>
+</div>
 </body>
 </html>

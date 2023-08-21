@@ -1,20 +1,143 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>Word Cloud Generator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<h1>Word Cloud Generator</h1>
-<form action="/details" method="get">
-    <button type="submit" name="keyword" value="Social">사회</button>
-    <button type="submit" name="keyword" value="Political">정치</button>
-    <button type="submit" name="keyword" value="Economic">경제</button>
-    <button type="submit" name="keyword" value="International">국제</button>
-    <button type="submit" name="keyword" value="Cultural">문화</button>
-    <button type="submit" name="keyword" value="Entertainment">연예</button>
-    <button type="submit" name="keyword" value="Sports">스포츠</button>
-    <button type="submit" name="keyword" value="IT">IT</button>
-</form>
-</body>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: 나눔고딕코딩;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #3f9bfd;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 40px;
+        font-family: "Bauhaus 93";
+        margin-top: 20px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 18px;
+        margin-top: 20px;
+        text-align: center;
+      }
+      .container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 500px;
+      }
+
+      .btn-group {
+        text-align: center;
+      }
+
+      .btn {
+        margin: 5px;
+        font-size: 16px;
+        background-color: #65b0ff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #3f9bfd;
+      }
+    </style>
+  </head>
+  <body>
+  <header>
+    <h1>World Cloud</h1>
+  </header>
+    <div class="container">
+      <h2>대주제를 입력하세요 !</h2>
+
+      <form action="/details" method="get">
+        <div class="btn-group centered">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="Social"
+          >
+            사회
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="Political"
+          >
+            정치
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="Economic"
+          >
+            경제
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="International"
+          >
+            국제
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="Cultural"
+          >
+            문화
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="Entertainment"
+          >
+            연예
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="Sports"
+          >
+            스포츠
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            name="keyword"
+            value="IT"
+          >
+            IT
+          </button>
+        </div>
+      </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
