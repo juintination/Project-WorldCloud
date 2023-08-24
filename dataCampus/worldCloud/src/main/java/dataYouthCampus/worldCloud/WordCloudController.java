@@ -157,6 +157,11 @@ public class WordCloudController {
     }
 
     @GetMapping("/")
+    public String welcome() {
+        return "welcome";
+    }
+
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
