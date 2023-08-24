@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WorldCloud</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Welcome to WorldCloud</h1>
+<p>Click the button below to start generating word clouds</p>
+
+<form th:action="@{/index}" method="get">
+    <button type="submit">Start!</button>
+</form>
+</body>
+</html>

@@ -2,6 +2,7 @@ package dataYouthCampus.worldCloud;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -155,6 +157,11 @@ public class WordCloudController {
     }
 
     @GetMapping("/")
+    public String welcome() {
+        return "welcome";
+    }
+
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
@@ -226,6 +233,22 @@ public class WordCloudController {
                 .headers(headers)
                 .contentLength(file.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
+
+    @GetMapping("/getVisHTML")
+    public ResponseEntity<Resource> getVisHTML() throws MalformedURLException {
+        String localHTMLFilePath = "/dataCampus/outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
+                + getDate.replace("-", "_") + "/vis.html";
+        File localHTMLFile = new File(localHTMLFilePath);
+        String absolutePath = localHTMLFile.getAbsolutePath();
+        Resource resource = new UrlResource("file:" + absolutePath);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_HTML);
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=file.html");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.TEXT_HTML)
                 .body(resource);
     }
 }
