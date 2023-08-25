@@ -57,9 +57,6 @@ def getWordCloud(keyword, detail_keyword, date):
     except Exception as e:
         print(f"디렉터리 생성 중 오류 발생: {e}")
 
-    if not is_today and is_new_directory_exist:
-        return
-
     if detail_keyword == "":
         detail_keyword = 'all'
         url = f'https://news.daum.net/breakingnews/{keyword}?regDate=' + str(re.sub('-', '', date))
@@ -67,6 +64,12 @@ def getWordCloud(keyword, detail_keyword, date):
         url = f'https://news.daum.net/breakingnews/{keyword}/{detail_keyword}?regDate=' + str(re.sub('-', '', date))
 
     newspapers = getNewsPapers(url)
+
+    if not is_today and is_new_directory_exist:
+        if len(os.listdir(r'C:\\dataCampus\\inputdata\\' + keyword + '\\' + detail_keyword + '\\' + str(re.sub('-', '_', date)))) == len(newspapers):
+            print('종료 조건에 의해 프로그램을 종료합니다.')
+            return
+        
     os.chdir(r'C:\\dataCampus\\inputdata\\' + keyword + '\\' + detail_keyword + '\\' + str(re.sub('-', '_', date)))
     for idx, newspaper in enumerate(newspapers):
         f = open(str(re.sub('-', '_', date)) + f'_{idx}_###.txt', 'w')
