@@ -40,11 +40,8 @@ def getNewsPapers(url):
 
 
 def getWordCloud(keyword, detail_keyword, date):
-    if date == "":
-        date = str(datetime.date.today())
-
     is_today, is_new_directory_exist = False, False
-    if date == str(re.sub('-', '_', str(datetime.date.today()))):
+    if date == str(datetime.date.today()):
         is_today = True
 
     new_input_directory = f'C:\\dataCampus\\inputdata\\{keyword}\\{detail_keyword}\\' + str(re.sub('-', '_', date))
@@ -57,8 +54,7 @@ def getWordCloud(keyword, detail_keyword, date):
     except Exception as e:
         print(f"디렉터리 생성 중 오류 발생: {e}")
 
-    if detail_keyword == "":
-        detail_keyword = 'all'
+    if detail_keyword == 'all':
         url = f'https://news.daum.net/breakingnews/{keyword}?regDate=' + str(re.sub('-', '', date))
     else:
         url = f'https://news.daum.net/breakingnews/{keyword}/{detail_keyword}?regDate=' + str(re.sub('-', '', date))
@@ -155,7 +151,8 @@ def getWordCloud(keyword, detail_keyword, date):
         num_topics=max_num,
         random_state=5000
     )
-    vis1 = pyLDAvis.gensim.prepare(model, corpus, id2word)
+
+    vis1 = pyLDAvis.gensim.prepare(model, corpus, id2word, mds='mmds')
 
     new_output_directory = f'C:\\dataCampus\\outputdata\\{keyword}\\{detail_keyword}\\' + str(re.sub('-', '_', date))
     try:
