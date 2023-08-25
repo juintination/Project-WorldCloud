@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.time.LocalDate;
 
 @Controller
 public class WordCloudController {
@@ -53,7 +54,7 @@ public class WordCloudController {
         keywordAddressMap.put("Sports", "sports");
         keywordAddressMap.put("IT", "digital");
 
-        detailKeywordAddressMap.put("전체기사", "");
+        detailKeywordAddressMap.put("전체기사", "all");
 
         // society
         detailKeywordAddressMap.put("사건/사고", "affair");
@@ -179,6 +180,10 @@ public class WordCloudController {
         getKeyword = keywordAddressMap.get(keyword);
         getDetailKeyword = detailKeywordAddressMap.get(detailKeyword);
         getDate = date;
+        if (getDate.isEmpty()) {
+            LocalDate today = LocalDate.now();
+            getDate = today.toString();
+        }
         String command = "python C:\\\\dataCampus\\\\python\\\\generateWordCloud.py " + getKeyword + " " + getDetailKeyword + " " + getDate;
         Process process = Runtime.getRuntime().exec(command);
         int exitCode;
