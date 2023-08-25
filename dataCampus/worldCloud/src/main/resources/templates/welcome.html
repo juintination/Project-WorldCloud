@@ -1,15 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>WorldCloud</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Welcome</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <style>
+        body {
+            animation: changeBackgroundColor 5s;
+            background-color: #3f9bfd;
+            font-family: 나눔고딕코딩;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes changeBackgroundColor {
+            0% {
+                background-color: white;
+            }
+            100% {
+                background-color: #3f9bfd;
+            }
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column; /* Added for vertical alignment */
+        }
+        .welcome {
+            text-align: center;
+            color: white;
+            font-size: 6rem;
+            opacity: 1;
+            animation: fadeOutAndMove 2s forwards 1.5s;
+        }
+        .worldCloud {
+            text-align: center;
+            color: white;
+            font-size: 6rem;
+            opacity: 0;
+            position: absolute;
+            animation: fadeInFromRight 2s forwards 3.5s;
+        }
+        @keyframes fadeOutAndMove {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(38%);
+            }
+        }
+        @keyframes fadeInFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(38%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .start {
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            opacity: 0; /* Initially hidden */
+            animation: fadeIn 2s forwards 6s; /* Fade in animation */
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .start:hover {
+            background-color: #357ae8;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Welcome to WorldCloud</h1>
-<p>Click the button below to start generating word clouds</p>
-
-<form th:action="@{/index}" method="get">
-    <button type="submit">Start!</button>
-</form>
+<div class="container">
+    <div class="welcome">Welcome</div>
+    <div class="worldCloud">WorldCloud</div>
+    <form method="get" th:action="@{/index}">
+        <button type="submit" class="start">시작하기</button>
+    </form>
+</div>
 </body>
 </html>
