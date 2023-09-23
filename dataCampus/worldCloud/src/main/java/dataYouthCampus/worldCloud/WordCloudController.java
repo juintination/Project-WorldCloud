@@ -207,6 +207,9 @@ public class WordCloudController {
             }
             ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
             model.addAttribute("imageResponseEntity", responseEntity);
+            model.addAttribute("selectedKeyword", getKeyword);
+            model.addAttribute("selectedDetailKeyword", getDetailKeyword);
+            model.addAttribute("selectedDate", getDate);
         } else {
             return "error";
         }

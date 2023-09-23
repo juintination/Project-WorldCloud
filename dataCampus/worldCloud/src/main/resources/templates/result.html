@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <style>
-    body{
+    body {
         font-family: 나눔고딕코딩;
         background-color: #f5f5f5;
         margin: 0;
@@ -51,29 +51,82 @@
         background-color: #3f9bfd;
     }
 
+    #searchBoxContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    #searchBox {
+        width: 75%;
+        padding: 8px;
+        margin-right: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #searchButton {
+        width: 20%;
+        font-size: 18px;
+        background-color: #65b0ff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
 </style>
 <body>
 <header>
     <form action="/" method="get">
-        <button class="home" type="submit">World Cloud</button>
+        <button class="home" type="submit">Word Cloud</button>
     </form>
 </header>
 <div class="container">
-<img th:if="${imageResponseEntity}" th:src="@{/displayImage}" alt="Generated Word Cloud" style="max-width: 100%; height: auto;">
+    <img th:if="${imageResponseEntity}" th:src="@{/displayImage}" alt="Generated Word Cloud" style="max-width: 100%; height: auto;">
 
-<!-- Save and Go Back buttons -->
-<form action="/save" method="get">
-    <input type="hidden" name="imagePath" th:value="${imagePath}">
-    <button type="submit" class="btn1">World Cloud 저장</button>
-</form>
+    <!-- Save and Go Back buttons -->
+    <form action="/save" method="get">
+        <input type="hidden" name="imagePath" th:value="${imagePath}">
+        <button type="submit" class="btn1">Word Cloud 저장</button>
+    </form>
 
-<form action="/" method="get">
-    <button type="submit" class="btn2">처음으로 돌아가기</button>
-</form>
+    <form action="/" method="get">
+        <button type="submit" class="btn2">처음으로 돌아가기</button>
+    </form>
 
-<form action="/getVisHTML" method="get">
-    <button type="submit" class="btn1">키워드 분석 결과 확인하러 가기</button>
-</form>
+    <form action="/getVisHTML" method="get">
+        <button type="submit" class="btn1">키워드 분석 결과 확인하러 가기</button>
+    </form>
+
+    <button type="button" class="btn1" onclick="openEveryNews()">전체 뉴스 기사 보러가기</button>
+
+    <div id="searchBoxContainer">
+        <input type="text" id="searchBox" placeholder="더 궁금한 내용을 바로 검색하세요">
+        <button type="button" id="searchButton" onclick="searchCustomQuery()">Go</button>
+    </div>
+
+    <script>
+        function openEveryNews() {
+            var selectedKeyword = "${selectedKeyword}";
+            var selectedDetailKeyword = "${selectedDetailKeyword}";
+            var selectedDate = "${selectedDate}".replace(/-/g, '');
+
+            var url = 'https://news.daum.net/breakingnews/' + selectedKeyword + '/' + selectedDetailKeyword + '?regDate=' + selectedDate;
+
+            window.open(url, '_blank');
+        }
+
+        function searchCustomQuery() {
+            var customQuery = document.getElementById("searchBox").value;
+            var naverSearchUrl = 'https://search.naver.com/search.naver?where=nexarch&sm=top_hty&fbm=0&ie=utf8&query=' + encodeURIComponent(customQuery);
+
+            window.open(naverSearchUrl, '_blank');
+        }
+    </script>
 
 </div>
 </body>
