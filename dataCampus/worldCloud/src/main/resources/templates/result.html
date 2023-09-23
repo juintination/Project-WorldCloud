@@ -109,16 +109,21 @@
         <button type="button" id="searchButton" onclick="searchCustomQuery()">Go</button>
     </div>
 
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         function openEveryNews() {
-            var selectedKeyword = "${selectedKeyword}";
-            var selectedDetailKeyword = "${selectedDetailKeyword}";
-            var selectedDate = "${selectedDate}".replace(/-/g, '');
+            var selectedKeyword = /*[[${selectedKeyword}]]*/ "";
+            var selectedDetailKeyword = /*[[${selectedDetailKeyword}]]*/ "";
+            var selectedDate = /*[[${selectedDate}]]*/ "";
+
+            // Remove hyphens from the date
+            selectedDate = selectedDate.replace(/-/g, '');
 
             var url = 'https://news.daum.net/breakingnews/' + selectedKeyword + '/' + selectedDetailKeyword + '?regDate=' + selectedDate;
 
             window.open(url, '_blank');
         }
+        /*]]>*/
 
         function searchCustomQuery() {
             var customQuery = document.getElementById("searchBox").value;
