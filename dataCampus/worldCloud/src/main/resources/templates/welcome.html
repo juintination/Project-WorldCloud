@@ -1,105 +1,307 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Welcome</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <style>
-        body {
-            animation: changeBackgroundColor 5s;
-            background-color: #3f9bfd;
-            font-family: 나눔고딕코딩;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>워드 클라우드</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body id="page-top">
+    <!-- Navigation-->
+    <nav
+      class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
+      id="mainNav"
+    >
+      <br /><br />
+      <div class="container">
+        <br /><br />
+        <a class="navbar-brand" href="#page-top">World Cloud</a>
+        <button
+          class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about"
+                >설명</a
+              >
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact"
+                >고객지원</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Masthead-->
 
-        @keyframes changeBackgroundColor {
-            0% {
-                background-color: white;
-            }
-            100% {
-                background-color: #3f9bfd;
-            }
-        }
-        .container {
-            display: flex;
-            align-items: center;
-            flex-direction: column; /* Added for vertical alignment */
-        }
-        .welcome {
-            text-align: center;
-            color: white;
-            font-size: 6rem;
-            opacity: 1;
-            animation: fadeOutAndMove 2s forwards 1.5s;
-        }
-        .worldCloud {
-            text-align: center;
-            color: white;
-            font-size: 6rem;
-            opacity: 0;
-            position: absolute;
-            animation: fadeInFromRight 2s forwards 3.5s;
-        }
-        @keyframes fadeOutAndMove {
-            0% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(38%);
-            }
-        }
-        @keyframes fadeInFromRight {
-            0% {
-                opacity: 0;
-                transform: translateX(38%);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        .start {
-            background-color: #4285f4;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            border-radius: 5px;
-            opacity: 0; /* Initially hidden */
-            animation: fadeIn 2s forwards 6s; /* Fade in animation */
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .start:hover {
-            background-color: #357ae8;
-            transform: scale(1.05);
-        }
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(10%);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="welcome">Welcome</div>
-    <div class="worldCloud">WorldCloud</div>
-    <form method="get" th:action="@{/index}">
-        <button type="submit" class="start">시작하기</button>
-    </form>
-</div>
-</body>
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Heading-->
+        <br /><br />
+        <br /><br />
+        <br /><br />
+        <h1 class="masthead-heading text-uppercase mb-0">World Cloud</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0">
+          워드 클라우드 시작하기
+        </p>
+      </div>
+      <div>
+        <br />
+        <br />
+        <form method="get" th:action="@{/index}">
+          <button type="submit" class="start">시작하기</button>
+        </form>
+      </div>
+      <br />
+      <br /><br />
+    </header>
+    <!-- About Section-->
+    <section class="page-section bg-primary text-white mb-0" id="about">
+      <div class="container">
+        <!-- About Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-white">
+          About
+        </h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content-->
+        <div class="row">
+          <div class="col-lg-4 ms-auto">
+            <p class="lead">
+              원하는 키워드에 관련된 하루의 뉴스들의 주요 키워드를 추출하여
+              하나의 워드 클라우드로 만들어주는 웹 서비스 입니다!
+            </p>
+            <img src="assets/img/example.png" height="400" width="400" />
+          </div>
+          <div class="col-lg-4 me-auto">
+            <p class="lead">
+              LDA 모델을 이용하여 크롤링한 뉴스에 대한 최적의 토픽 개수를
+              기반으로 얻은 키워드를 이용한 워드 클라우드 생성기 입니다!
+            </p>
+            <img src="assets/img/analyze.png" height="400" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section-->
+    <section class="page-section" id="contact">
+      <div class="container">
+        <!-- Contact Section Heading-->
+        <h2
+          class="page-section-heading text-center text-uppercase text-secondary mb-0"
+        >
+          고객지원
+        </h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- Contact Section Form-->
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-xl-7">
+            <!-- * * * * * * * * * * * * * * *-->
+            <!-- * * SB Forms Contact Form * *-->
+            <!-- * * * * * * * * * * * * * * *-->
+            <!-- This form is pre-integrated with SB Forms.-->
+            <!-- To make this form functional, sign up at-->
+            <!-- https://startbootstrap.com/solution/contact-forms-->
+            <!-- to get an API token!-->
+            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+              <!-- Name input-->
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="name"
+                  type="text"
+                  placeholder="Enter your name..."
+                  data-sb-validations="required"
+                />
+                <label for="name">Name</label>
+                <div class="invalid-feedback" data-sb-feedback="name:required">
+                  A name is required.
+                </div>
+              </div>
+              <!-- Email address input-->
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  data-sb-validations="required,email"
+                />
+                <label for="email">Email</label>
+                <div class="invalid-feedback" data-sb-feedback="email:required">
+                  An email is required.
+                </div>
+                <div class="invalid-feedback" data-sb-feedback="email:email">
+                  Email is not valid.
+                </div>
+              </div>
+              <!-- Phone number input-->
+              <div class="form-floating mb-3">
+                <input
+                  class="form-control"
+                  id="phone"
+                  type="tel"
+                  placeholder="(123) 456-7890"
+                  data-sb-validations="required"
+                />
+                <label for="phone">Phone number</label>
+                <div class="invalid-feedback" data-sb-feedback="phone:required">
+                  A phone number is required.
+                </div>
+              </div>
+              <!-- Message input-->
+              <div class="form-floating mb-3">
+                <textarea
+                  class="form-control"
+                  id="message"
+                  type="text"
+                  placeholder="Enter your message here..."
+                  style="height: 10rem"
+                  data-sb-validations="required"
+                ></textarea>
+                <label for="message">Message</label>
+                <div
+                  class="invalid-feedback"
+                  data-sb-feedback="message:required"
+                >
+                  A message is required.
+                </div>
+              </div>
+              <!-- Submit success message-->
+              <!---->
+              <!-- This is what your users will see when the form-->
+              <!-- has successfully submitted-->
+              <div class="d-none" id="submitSuccessMessage">
+                <div class="text-center mb-3">
+                  <div class="fw-bolder">Form submission successful!</div>
+                  To activate this form, sign up at
+                  <br />
+                  <a href="https://startbootstrap.com/solution/contact-forms"
+                    >https://startbootstrap.com/solution/contact-forms</a
+                  >
+                </div>
+              </div>
+              <!-- Submit error message-->
+              <!---->
+              <!-- This is what your users will see when there is-->
+              <!-- an error submitting the form-->
+              <div class="d-none" id="submitErrorMessage">
+                <div class="text-center text-danger mb-3">
+                  Error sending message!
+                </div>
+              </div>
+              <!-- Submit Button-->
+              <button
+                class="btn btn-primary btn-xl disabled"
+                id="submitButton"
+                type="submit"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+          <!-- Footer Location-->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Location</h4>
+            <p class="lead mb-0">
+              세종특별자치시 조치원읍 세종로 2639
+              <br />
+              2639, Sejong-ro, Jochiwon-eup, Sejong-si, Republic of Korea
+            </p>
+          </div>
+          <!-- Footer Social Icons-->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Around the Web</h4>
+            <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/juintination/Project-WorldCloud" target="_blank"
+            ><i class="fab fa-fw fa-github"></i
+            ></a>
+            <a class="btn btn-outline-light btn-social mx-1" href="https://news.daum.net/breakingnews" target="_blank"
+            ><i class="fas fa-newspaper"></i
+            ></a>
+          </div>
+          <!-- Footer About Text-->
+          <div class="col-lg-4">
+
+            <h4 class="text-uppercase mb-4">CONTACT</h4>
+            <p class="lead mb-0">Back-end : juintin@mail.hongik.ac.kr</p>
+            <p class="lead mb-0">Front-end : ghehf51@naver.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Copyright Section-->
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; WorldCloud 2023</small>
+      </div>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+  </body>
 </html>

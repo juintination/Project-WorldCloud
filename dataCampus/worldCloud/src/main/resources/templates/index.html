@@ -1,43 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
-    <title>Word Cloud Generator</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>워드 클라우드</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
     <style>
-      body {
-        font-family: 나눔고딕코딩;
-        background-color: #f5f5f5;
-        margin: 0;
-        padding: 0;
-      }
-      header {
-        background-color: #3f9bfd;
-        color: #fff;
-        text-align: center;
-        padding: 20px;
-      }
       h1 {
         font-size: 40px;
-        font-family: "Bauhaus 93";
         margin-top: 20px;
         text-align: center;
+        color: white;
       }
-      h2 {
-        font-size: 18px;
-        margin-top: 20px;
-        text-align: center;
-      }
-      .container {
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin: 20px auto;
+      .container1 {
+        display: flex;
+        justify-content: center;
+        padding: 15px;
+        margin: auto;
         max-width: 500px;
+        align-items: center;
       }
 
       .btn-group {
@@ -45,13 +50,15 @@
       }
 
       .btn {
-        margin: 5px;
-        font-size: 16px;
-        background-color: #65b0ff;
+        margin: 10px;
+        font-size: 30px;
+        background-color: #77abff;
         border: none;
+        text-align: center;
+
         border-radius: 5px;
-        padding: 10px;
-        color: #fff;
+        padding-left: 10px;
+        color: white;
         cursor: pointer;
         transition: background-color 0.3s;
       }
@@ -60,84 +67,184 @@
       }
     </style>
   </head>
-  <body>
-  <header>
-    <h1>World Cloud</h1>
-  </header>
-    <div class="container">
-      <h2>대주제를 입력하세요 !</h2>
-
-      <form action="/details" method="get">
-        <div class="btn-group centered">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="Social"
-          >
-            사회
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="Political"
-          >
-            정치
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="Economic"
-          >
-            경제
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="International"
-          >
-            국제
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="Cultural"
-          >
-            문화
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="Entertainment"
-          >
-            연예
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="Sports"
-          >
-            스포츠
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            name="keyword"
-            value="IT"
-          >
-            IT
-          </button>
+  <body id="page-top">
+    <!-- Navigation-->
+    <nav
+      class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
+      id="mainNav"
+    >
+      <br /><br />
+      <div class="container">
+        <br /><br />
+        <a class="navbar-brand" href="/">World Cloud</a>
+        <button
+          class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+              <a
+                class="nav-link py-3 px-0 px-lg-3 rounded"
+                href="/#about"
+                >설명</a
+              >
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a
+                class="nav-link py-3 px-0 px-lg-3 rounded"
+                href="/#contact"
+                >고객지원</a
+              >
+            </li>
+          </ul>
         </div>
-      </form>
+      </div>
+    </nav>
+    <br /><br />
+    <!-- About Section-->
+    <section class="page-section bg-primary text-white mb-0" id="about">
+      <div class="container">
+        <!-- About Section Heading-->
+        <br /><br /><br />
+        <h1>대주제를 입력하세요 !</h1>
+        <div class="container1">
+          <br /><br />
+
+          <form action="/details" method="get">
+            <div class="btn-group d-flex justify-content-center">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="Social"
+              >
+                사회
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="Political"
+              >
+                정치
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="Economic"
+              >
+                경제
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="International"
+              >
+                국제
+              </button>
+            </div>
+            <div class="btn-group d-flex justify-content-center">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="Cultural"
+              >
+                문화
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="Entertainment"
+              >
+                연예
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="Sports"
+              >
+                스포츠
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                name="keyword"
+                value="IT"
+              >
+                IT
+              </button>
+            </div>
+            <br />
+            <br />
+            <br />
+          </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+          <!-- Footer Location-->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Location</h4>
+            <p class="lead mb-0">
+              세종특별자치시 조치원읍 세종로 2639
+              <br />
+              2639, Sejong-ro, Jochiwon-eup, Sejong-si, Republic of Korea
+            </p>
+          </div>
+          <!-- Footer Social Icons-->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Around the Web</h4>
+            <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/juintination/Project-WorldCloud" target="_blank"
+              ><i class="fab fa-fw fa-github"></i
+            ></a>
+            <a class="btn btn-outline-light btn-social mx-1" href="https://news.daum.net/breakingnews" target="_blank"
+              ><i class="fas fa-newspaper"></i
+              ></a>
+          </div>
+          <!-- Footer About Text-->
+          <div class="col-lg-4">
+
+            <h4 class="text-uppercase mb-4">CONTACT</h4>
+            <p class="lead mb-0">Back-end : juintin@mail.hongik.ac.kr</p>
+            <p class="lead mb-0">Front-end : ghehf51@naver.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Copyright Section-->
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; WorldCloud 2023</small>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
   </body>
 </html>

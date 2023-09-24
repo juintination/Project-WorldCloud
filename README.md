@@ -24,6 +24,7 @@ Crawling : 김기현(B989009, python을 이용한 크롤링을 비롯한 전처�
 
 - [사용 방법](#사용-방법)
 - [실행 화면과 기능 설명](#실행-화면과-기능-설명)
+- [UI 변경 및 추가된 기능 설명](#ui-변경-및-추가된-기능-설명)
 - [워드 클라우드 생성 관련 알고리즘 설명](#워드-클라우드-생성-관련-알고리즘-설명)
 
 ---
@@ -68,6 +69,36 @@ Welcome page에서 시작하기 버튼을 누르면 다음과 같이 대주제
 
 ---
 
+## UI 변경 및 추가된 기능 설명
+
+무료 부트스트랩 템플릿을 참고하여 해당 프로젝트의 UI를 수정하였습니다.
+
+<img width="1544" alt="스크린샷 2023-09-24 오후 9 50 19" src="https://github.com/juintination/Project-WorldCloud/assets/89019601/f7e66cc2-de6b-4a5e-ad3b-fc9f5cbdeb85">
+
+Welcome page의 맨 위의 화면입니다. 시작하기 버튼을 누르면 다음과 같이 대주제를 선택할 수 있는 창으로 넘어가게 됩니다.
+
+<img width="1544" alt="스크린샷 2023-09-24 오후 9 50 33" src="https://github.com/juintination/Project-WorldCloud/assets/89019601/e4ee31f6-3a36-45e0-b009-5f14fa324204">
+
+Welcome page의 중간 화면입니다. 해당 프로젝트의 간단한 설명을 적어놓았습니다.
+
+<img width="1544" alt="스크린샷 2023-09-24 오후 9 50 43" src="https://github.com/juintination/Project-WorldCloud/assets/89019601/66369f08-54ec-44b0-9b60-406571c9a486">
+
+Welcome page의 맨 아래 화면입니다. 해당 기능은 아직 구현하지 않았으며 추후에 기회가 생긴다면 수정할 예정입니다.
+
+<img width="1544" alt="스크린샷 2023-09-24 오후 9 50 54" src="https://github.com/juintination/Project-WorldCloud/assets/89019601/50174bdd-cb1a-4b86-8834-fed7db5161b1">
+
+대주제 선택 화면입니다. 기존의 UI와 다르게 2줄로 나열하였으며 훨씬 깔끔해진 것을 확인할 수 있습니다.
+
+<img width="1544" alt="스크린샷 2023-09-24 오후 9 51 00" src="https://github.com/juintination/Project-WorldCloud/assets/89019601/b6045714-21c2-4469-b53d-7e90bf8dc688">
+
+소주제 선택 화면입니다. 워드 클라우드 생성 버튼을 누르게 되면 잠시만 기다려주세요 옆에 3개의 서로 다른 작은 원이 움직입니다.
+
+<img width="1544" alt="스크린샷 2023-09-24 오후 9 51 22" src="https://github.com/juintination/Project-WorldCloud/assets/89019601/8baf94f4-59de-433b-b05c-dc89dd4f8832">
+
+마지막 결과 화면입니다. 전체 뉴스 기사 보러가기 버튼을 누르게 된다면 워드 클라우드 제작에 활용한 뉴스 기사들의 원문들을 확인할 수 있는 기능과 더 알아보고 싶은 키워드 등을 아래 검색창에 입력하고 오른쪽의 버튼을 누르게 된다면 바로 네이버 검색 결과를 보여주도록 기능을 추가하였습니다.
+
+---
+
 ## 워드 클라우드 생성 관련 알고리즘 설명
 
 - generateWordCloud.py는 앞서 설명했듯이 매개변수로 \<keyword> \<detail_keyword> \<date>를 받습니다.
@@ -84,7 +115,7 @@ Welcome page에서 시작하기 버튼을 누르면 다음과 같이 대주제
 
 - 사용언어 및 개발환경 : <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src ="https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/> <img src ="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white"/> <img src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/>
 
-
 ## 참고
 
 - [명령어 설명 규칙](https://technet.tmaxsoft.com/upload/download/online/jeus/pver-20170202-000001/reference-book/jeusadmin-conventions.html)
+- [UI 수정을 위해 참고한 무료 부트스트랩 템플릿](https://startbootstrap.com/theme/freelancer)
