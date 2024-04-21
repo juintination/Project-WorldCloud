@@ -6,10 +6,26 @@ from gensim.models import LdaModel, CoherenceModel
 from konlpy.tag import Okt
 import pyLDAvis.gensim
 from wordcloud import WordCloud
-# import numpy as np
-# from PIL import Image
 
 warnings.filterwarnings('ignore')
+
+
+def make_directory(path: str) -> bool:
+    is_new_directory_exist = False
+    try:
+        os.mkdir(path)
+        print(f"디렉터리 '{path}'를 생성했습니다.")
+    except FileExistsError:
+        is_new_directory_exist = True
+        print(f"'{path}'는 이미 존재합니다.")
+    except Exception as e:
+        print(f"{path} 디렉터리 생성 중 오류 발생: {e}")
+    return is_new_directory_exist
+
+
+def init_dictionary():
+    directories = ['..\\inputdata\\', '..\\outputdata\\']
+    [make_directory(directory) for directory in directories]
 
 
 def getNewsPapers(url):
@@ -40,19 +56,18 @@ def getNewsPapers(url):
 
 
 def getWordCloud(keyword, detail_keyword, date):
-    is_today, is_new_directory_exist = False, False
+    is_today = False
     if date == str(datetime.date.today()):
         is_today = True
 
-    new_input_directory = f'C:\\dataCampus\\inputdata\\{keyword}\\{detail_keyword}\\' + str(re.sub('-', '_', date))
-    try:
-        os.mkdir(new_input_directory)
-        print(f"디렉터리 '{new_input_directory}'를 생성했습니다.")
-    except FileExistsError:
-        is_new_directory_exist = True
-        print(f"'{new_input_directory}'는 이미 존재합니다.")
-    except Exception as e:
-        print(f"디렉터리 생성 중 오류 발생: {e}")
+    input_keyword_directory = f'..\\inputdata\\{keyword}\\'
+    make_directory(input_keyword_directory)
+
+    input_detail_keyword_directory = input_keyword_directory + detail_keyword + '\\'
+    make_directory(input_detail_keyword_directory)
+
+    new_input_directory = input_detail_keyword_directory + str(re.sub('-', '_', date))
+    is_new_directory_exist = make_directory(new_input_directory)
 
     if detail_keyword == 'all':
         url = f'https://news.daum.net/breakingnews/{keyword}?regDate=' + str(re.sub('-', '', date))
@@ -62,11 +77,11 @@ def getWordCloud(keyword, detail_keyword, date):
     newspapers = getNewsPapers(url)
 
     if not is_today and is_new_directory_exist:
-        if len(os.listdir(r'C:\\dataCampus\\inputdata\\' + keyword + '\\' + detail_keyword + '\\' + str(re.sub('-', '_', date)))) == len(newspapers):
+        if len(os.listdir(new_input_directory)) == len(newspapers):
             print('종료 조건에 의해 프로그램을 종료합니다.')
             return
         
-    os.chdir(r'C:\\dataCampus\\inputdata\\' + keyword + '\\' + detail_keyword + '\\' + str(re.sub('-', '_', date)))
+    os.chdir(new_input_directory)
     for idx, newspaper in enumerate(newspapers):
         f = open(str(re.sub('-', '_', date)) + f'_{idx}_###.txt', 'w')
         try:
@@ -80,13 +95,12 @@ def getWordCloud(keyword, detail_keyword, date):
             pass
         f.close()
 
-    file_list = os.listdir(
-        r'C:\\dataCampus\\inputdata\\' + keyword + '\\' + detail_keyword + '\\' + str(re.sub('-', '_', date)))
+    os.chdir(base_directory)
+    file_list = os.listdir(new_input_directory)
 
     datas = []
     for file in file_list:
-        file_path = os.path.join(f'C:\\dataCampus\\inputdata\\{keyword}\\{detail_keyword}\\',
-                                 str(re.sub('-', '_', date)), file)
+        file_path = os.path.join(new_input_directory, file)
 
         with open(file_path, 'rb') as f:
             raw_data = f.read()
@@ -154,17 +168,16 @@ def getWordCloud(keyword, detail_keyword, date):
 
     vis1 = pyLDAvis.gensim.prepare(model, corpus, id2word, mds='mmds')
 
-    new_output_directory = f'C:\\dataCampus\\outputdata\\{keyword}\\{detail_keyword}\\' + str(re.sub('-', '_', date))
-    try:
-        os.mkdir(new_output_directory)
-        print(f"디렉터리 '{new_output_directory}'를 생성했습니다.")
-    except FileExistsError:
-        is_new_directory_exist = True
-        print(f"'{new_output_directory}'는 이미 존재합니다.")
-    except Exception as e:
-        print(f"디렉터리 생성 중 오류 발생: {e}")
+    output_keyword_directory = f'..\\outputdata\\{keyword}\\'
+    make_directory(output_keyword_directory)
 
-    pyLDAvis.save_html(vis1, f'C:\\dataCampus\\outputdata\\{keyword}\\{detail_keyword}\\' + str(re.sub('-', '_', date)) + '\\vis.html')
+    output_detail_keyword_directory = output_keyword_directory + detail_keyword + '\\'
+    make_directory(output_detail_keyword_directory)
+
+    new_output_directory = output_detail_keyword_directory + str(re.sub('-', '_', date))
+    make_directory(new_output_directory)
+
+    pyLDAvis.save_html(vis1, new_output_directory + '\\vis.html')
 
     topics = model.show_topics(num_topics=max_num, num_words=10, formatted=False)
     topic_keywords = [[word[0] for word in topic[1]] for topic in topics]
@@ -173,9 +186,11 @@ def getWordCloud(keyword, detail_keyword, date):
     for keywords in topic_keywords:
         text += " ".join(keywords)
 
-    print('word cloud 생성중')
+    print('워드클라우드 생성중...')
+    os.chdir(base_directory)
+    font_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..\\font\\NanumGothicEco.ttf')
     wordcloud = WordCloud(
-        font_path=r'C:\\dataCampus\\font\\NanumGothicEco.ttf',
+        font_path=font_path,
         background_color='white',
         width=1000,
         height=1000,
@@ -183,16 +198,18 @@ def getWordCloud(keyword, detail_keyword, date):
         max_font_size=300
     ).generate(text)
 
-    os.chdir(r'C:\\dataCampus\\outputdata\\' + keyword + '\\' + detail_keyword + '\\' + str(re.sub('-', '_', date)))
+    os.chdir(new_output_directory)
     wordcloud.to_file('wordCloud.png')
 
-    print('word cloud 생성 완료')
+    print('워드클라우드 생성 완료!')
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print("Usage: python wordCloud.py <keyword> <detail_keyword> <date>")
+        print("Usage: python generateWorldCloud.py <keyword> <detail_keyword> <date>")
         sys.exit(1)
+    init_dictionary()
+    base_directory = os.getcwd()
     keyword = sys.argv[1]
     detail_keyword = sys.argv[2]
     date = sys.argv[3]

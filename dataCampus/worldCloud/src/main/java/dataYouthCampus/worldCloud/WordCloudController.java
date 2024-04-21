@@ -184,7 +184,7 @@ public class WordCloudController {
             LocalDate today = LocalDate.now();
             getDate = today.toString();
         }
-        String command = "python C:\\\\dataCampus\\\\python\\\\generateWordCloud.py " + getKeyword + " " + getDetailKeyword + " " + getDate;
+        String command = "python ..\\\\python\\\\generateWordCloud.py " + getKeyword + " " + getDetailKeyword + " " + getDate;
         Process process = Runtime.getRuntime().exec(command);
         int exitCode;
         try {
@@ -193,9 +193,9 @@ public class WordCloudController {
             exitCode = -1;
         }
         if (exitCode == 0) {
-            String imagePath = "/dataCampus/outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
+            String imagePath = "../outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
                     + getDate.replace("-", "_") + "/wordCloud.png";
-            model.addAttribute("imagePath", "/dataCampus/outputdata/wordCloud.png");
+            model.addAttribute("imagePath", imagePath);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_PNG);
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=wordCloud.png");
