@@ -30,7 +30,6 @@ public class WordCloudController {
     private final Map<String, List<String>> detailKeywordsMap;
     private final Map<String, String> keywordAddressMap;
     private final Map<String, String> detailKeywordAddressMap;
-    private String getKeyword, getDetailKeyword, getDate;
 
     @GetMapping("/")
     public String welcome() {
@@ -52,9 +51,9 @@ public class WordCloudController {
     @PostMapping("/generate")
     public String generateWordCloud(@RequestParam String keyword, @RequestParam String detailKeyword,
                                     @RequestParam String date, Model model) throws IOException {
-        getKeyword = keywordAddressMap.get(keyword);
-        getDetailKeyword = detailKeywordAddressMap.get(detailKeyword);
-        getDate = date;
+        String getKeyword = keywordAddressMap.get(keyword);
+        String getDetailKeyword = detailKeywordAddressMap.get(detailKeyword);
+        String getDate = date;
         if (getDate.isEmpty()) {
             LocalDate today = LocalDate.now();
             getDate = today.toString();
@@ -94,9 +93,9 @@ public class WordCloudController {
     }
 
     @GetMapping("/displayImage")
-    public ResponseEntity<byte[]> displayImage() {
-        String imagePath = "/dataCampus/outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
-                + getDate.replace("-", "_") + "/wordCloud.png";
+    public ResponseEntity<byte[]> displayImage(@RequestParam String keyword, @RequestParam String detailKeyword, @RequestParam String date) {
+        String imagePath = "/dataCampus/outputdata/" + keyword + "/" + detailKeyword + "/"
+                + date.replace("-", "_") + "/wordCloud.png";
         byte[] imageBytes;
         try {
             imageBytes = Files.readAllBytes(Paths.get(imagePath));
@@ -122,9 +121,9 @@ public class WordCloudController {
     }
 
     @GetMapping("/getVisHTML")
-    public ResponseEntity<Resource> getVisHTML() throws MalformedURLException {
-        String localHTMLFilePath = "/dataCampus/outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
-                + getDate.replace("-", "_") + "/vis.html";
+    public ResponseEntity<Resource> getVisHTML(@RequestParam String keyword, @RequestParam String detailKeyword, @RequestParam String date) throws MalformedURLException {
+        String localHTMLFilePath = "/dataCampus/outputdata/" + keyword + "/" + detailKeyword + "/"
+                + date.replace("-", "_") + "/vis.html";
         File localHTMLFile = new File(localHTMLFilePath);
         String absolutePath = localHTMLFile.getAbsolutePath();
         Resource resource = new UrlResource("file:" + absolutePath);
