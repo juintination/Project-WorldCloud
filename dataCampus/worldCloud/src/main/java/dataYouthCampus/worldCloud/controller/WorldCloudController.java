@@ -25,7 +25,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequiredArgsConstructor
-public class WordCloudController {
+public class WorldCloudController {
 
     private final Map<String, List<String>> detailKeywordsMap;
     private final Map<String, String> keywordAddressMap;
