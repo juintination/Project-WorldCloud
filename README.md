@@ -31,15 +31,12 @@ Crawling : 김기현(B989009, python을 이용한 크롤링을 비롯한 전처�
 
 ## 사용 방법
 
-- jdk 11, 스프링 프레임워크 2.7.15 버전으로 작성되었으며 웹 크롤링을 위한 추가적인 파이썬 라이브러리 설치가 필요함
-- 윈도우 환경 기준으로 C:\ 위치에 dataCampus.zip 파일을 압축 해제하고 inputdata.zip 및 outputdata.zip 파일은 C:\dataCampus\ 디렉터리 압축 해제해야 함
-  - 윈도우 환경이 아닌 경우에 경로 관련 코드를 수정해야 함
-- 위의 과정을 끝냈다면 추가적인 파이썬 라이브러리 설치를 위해 cmd 창에 다음과 같은 명령어를 반복한다.
-  - **python** C:\\dataCampus\\python\\generateWordCloud.py
-- generateWordCloud.py의 경우 실행을 위한 매개변수가 입력되지 않는 경우 오류가 발생하며 종료되도록 구현했음.
-  - 따라서 "Usage: python wordCloud.py \<keyword> \<detail_keyword> \<date>"와 같은 문구와 함께 종료되면 필요한 파이썬 라이브러리 설치가 완료된 것임.
-- 위의 과정까지 모두 끝마쳤으면 C:\dataCampus\worldCloud의 build.gradle을 intelliJ에서 Open as Project로 실행하여 WorldCloudApplcation.java를 실행하게 되면 스프링 프레임워크에 의해 실행한 컴퓨터가 서버가 되어 localhost:8080
-혹은 현재 ip 주소(cmd 창에서 ipconfig 명령어로 확인 가능):8080에 접속하게 되면 welcome page가 나오게 되며 서비스를 이용할 수 있음.
+- 스프링부트 2.7.15 버전으로 작성하였으며, JAVA 11과 Python 3.11이 필요합니다.
+  - ex) `openjdk11`, `Python 3.11.4`
+- 웹 크롤링을 위한 추가적인 파이썬 라이브러리 설치가 필요합니다.
+  - `$ pip install -r requirements.txt`
+- DB를 사용하지 않고 로컬 환경에 각종 데이터들이 저장되는 방식입니다.
+  - 현재 파이썬 코드 실행과 관련된 동시성 문제가 있는 것으로 확인되며, 추후에 해결할 예정입니다.
 
 ---
 
@@ -101,7 +98,7 @@ Welcome page의 맨 아래 화면입니다. 해당 기능은 아직 구현하지
 
 ## 워드 클라우드 생성 관련 알고리즘 설명
 
-- generateWordCloud.py는 앞서 설명했듯이 매개변수로 \<keyword> \<detail_keyword> \<date>를 받습니다.
+- generateWordCloud.py는 매개변수로 \<keyword> \<detail_keyword> \<date>를 받습니다.
 - 이 때 해당 뉴스들을 크롤링한 후 txt 파일로 변환하여 inputdata 디렉터리에 필요한 새로운 디렉터리를 생성합니다.
   - \<data>가 오늘 날짜가 아니며 생성한 디렉터리가 이미 존재한 경우 크롤링한 뉴스의 개수와 해당 디렉터리에 존재하는 txt 파일의 개수가 같다면 이미 outputdata 디렉터리에 워드 클라우드가 존재하며 새로운 뉴스가 작성되지 않은 상태이므로 generateWordCloud.py를 종료한 후에 이미 존재하는 워드 클라우드를 result.html에 표시하게 됩니다.
   - 위의 조건을 만족하지 않는 경우 새로운 워드 클라우드를 생성하기 위해 다음 과정을 진행합니다.
