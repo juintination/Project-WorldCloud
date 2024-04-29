@@ -1,38 +1,19 @@
-package dataYouthCampus.worldCloud;
+package dataYouthCampus.worldCloud.config;
 
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
-@Controller
-public class WordCloudController {
+@Configuration
+public class KeywordMapConfig {
 
-    private final Map<String, List<String>> detailKeywordsMap = new HashMap<>();
-    private final Map<String, String> keywordAddressMap = new HashMap<>();
-    private final Map<String, String> detailKeywordAddressMap = new HashMap<>();
-    private String getKeyword, getDetailKeyword, getDate;
-
-    public WordCloudController() {
+    @Bean
+    public Map<String, List<String>> detailKeywordsMap() {
+        Map<String, List<String>> detailKeywordsMap = new HashMap<>();
         detailKeywordsMap.put("Social", Arrays.asList("전체기사", "사건/사고", "인물", "교육", "미디어", "여성", "복지", "사회일반", "노동", "환경", "전국",
                 "서울", "수도권", "강원", "충청", "경상", "전라", "제주", "지역일반"));
         detailKeywordsMap.put("Political", Arrays.asList("전체기사", "행정/지자체", "국회/정당", "북한", "정치일반", "외교/국방", "청와대"));
@@ -44,7 +25,12 @@ public class WordCloudController {
         detailKeywordsMap.put("Entertainment", Arrays.asList("전체기사", "방송", "가요음악", "영화", "해외연예", "드라마", "예능", "연예가화제", "연예일반"));
         detailKeywordsMap.put("Sports", Arrays.asList("전체기사", "해외야구", "축구", "야구", "농구", "스포츠일반", "e스포츠", "골프", "해외축구", "배구"));
         detailKeywordsMap.put("IT", Arrays.asList("전체기사", "인터넷", "과학", "게임", "휴대폰통신", "IT기기", "통신모바일", "소프트웨어", "Tech일반"));
+        return detailKeywordsMap;
+    }
 
+    @Bean
+    public Map<String, String> keywordAddressMap() {
+        Map<String, String> keywordAddressMap = new HashMap<>();
         keywordAddressMap.put("Social", "society");
         keywordAddressMap.put("Political", "politics");
         keywordAddressMap.put("Economic", "economic");
@@ -53,7 +39,14 @@ public class WordCloudController {
         keywordAddressMap.put("Entertainment", "entertain");
         keywordAddressMap.put("Sports", "sports");
         keywordAddressMap.put("IT", "digital");
+        return keywordAddressMap;
+    }
 
+    @Bean
+    public Map<String, String> detailKeywordAddressMap() {
+        Map<String, String> detailKeywordAddressMap = new HashMap<>();
+
+        // all
         detailKeywordAddressMap.put("전체기사", "all");
 
         // society
@@ -155,108 +148,6 @@ public class WordCloudController {
         detailKeywordAddressMap.put("통신모바일", "moblie");
         detailKeywordAddressMap.put("소프트웨어", "software");
         detailKeywordAddressMap.put("Tech일반", "others");
-    }
-
-    @GetMapping("/")
-    public String welcome() {
-        return "welcome";
-    }
-
-    @GetMapping("/index")
-    public String index() {
-        return "index";
-    }
-
-    @GetMapping("/details")
-    public String detailsPage(@RequestParam String keyword, Model model) {
-        model.addAttribute("selectedKeyword", keyword);
-        model.addAttribute("detailKeywords", detailKeywordsMap.get(keyword));
-        return "details";
-    }
-
-    @PostMapping("/generate")
-    public String generateWordCloud(@RequestParam String keyword, @RequestParam String detailKeyword,
-                                    @RequestParam String date, Model model) throws IOException {
-        getKeyword = keywordAddressMap.get(keyword);
-        getDetailKeyword = detailKeywordAddressMap.get(detailKeyword);
-        getDate = date;
-        if (getDate.isEmpty()) {
-            LocalDate today = LocalDate.now();
-            getDate = today.toString();
-        }
-        String command = "python ..\\\\python\\\\generateWordCloud.py " + getKeyword + " " + getDetailKeyword + " " + getDate;
-        Process process = Runtime.getRuntime().exec(command);
-        int exitCode;
-        try {
-            exitCode = process.waitFor();
-        } catch (InterruptedException e) {
-            exitCode = -1;
-        }
-        if (exitCode == 0) {
-            String imagePath = "../outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
-                    + getDate.replace("-", "_") + "/wordCloud.png";
-            model.addAttribute("imagePath", imagePath);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_PNG);
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=wordCloud.png");
-            byte[] imageBytes;
-            try {
-                imageBytes = Files.readAllBytes(Paths.get(imagePath));
-            } catch (IOException e) {
-                return "error";
-            }
-            ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-            model.addAttribute("imageResponseEntity", responseEntity);
-            model.addAttribute("selectedKeyword", getKeyword);
-            model.addAttribute("selectedDetailKeyword", getDetailKeyword);
-            model.addAttribute("selectedDate", getDate);
-        } else {
-            return "error";
-        }
-        return "result";
-    }
-
-    @GetMapping("/displayImage")
-    public ResponseEntity<byte[]> displayImage() {
-        String imagePath = "/dataCampus/outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
-                + getDate.replace("-", "_") + "/wordCloud.png";
-        byte[] imageBytes;
-        try {
-            imageBytes = Files.readAllBytes(Paths.get(imagePath));
-        } catch (IOException e) {
-            return ResponseEntity.notFound().build();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-    }
-
-    @GetMapping("/save")
-    public ResponseEntity<Resource> downloadWordCloudImage(@RequestParam String imagePath) {
-        File file = new File(imagePath);
-        Resource resource = new FileSystemResource(file);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=wordCloud.png");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(file.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(resource);
-    }
-
-    @GetMapping("/getVisHTML")
-    public ResponseEntity<Resource> getVisHTML() throws MalformedURLException {
-        String localHTMLFilePath = "/dataCampus/outputdata/" + getKeyword + "/" + getDetailKeyword + "/"
-                + getDate.replace("-", "_") + "/vis.html";
-        File localHTMLFile = new File(localHTMLFilePath);
-        String absolutePath = localHTMLFile.getAbsolutePath();
-        Resource resource = new UrlResource("file:" + absolutePath);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_HTML);
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=file.html");
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentType(MediaType.TEXT_HTML)
-                .body(resource);
+        return detailKeywordAddressMap;
     }
 }
