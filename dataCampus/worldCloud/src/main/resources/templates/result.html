@@ -153,7 +153,7 @@
     <div class="container1">
       <img
               th:if="${imageResponseEntity}"
-              th:src="@{/displayImage}"
+              th:src="@{/displayImage(keyword=${selectedKeyword}, detailKeyword=${selectedDetailKeyword}, date=${selectedDate})}"
               alt="Generated Word Cloud"
               style="max-width: 100%; height: auto"
       />
@@ -169,10 +169,14 @@
       </form>
 
       <form action="/getVisHTML" method="get">
+        <input type="hidden" name="keyword" th:value="${selectedKeyword}">
+        <input type="hidden" name="detailKeyword" th:value="${selectedDetailKeyword}">
+        <input type="hidden" name="date" th:value="${selectedDate}">
         <button type="submit" class="btn2">
           키워드 분석 결과 확인하러 가기
         </button>
       </form>
+
       <button type="button" class="btn2" onclick="openEveryNews()">
         전체 뉴스 기사 보러가기
       </button>
