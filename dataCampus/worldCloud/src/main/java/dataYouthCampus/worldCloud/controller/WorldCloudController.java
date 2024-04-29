@@ -48,8 +48,8 @@ public class WorldCloudController {
         return "details";
     }
 
-    @PostMapping("/generate")
-    public String generateWordCloud(@RequestParam String keyword, @RequestParam String detailKeyword,
+    @PostMapping("/result")
+    public String getResult(@RequestParam String keyword, @RequestParam String detailKeyword,
                                     @RequestParam String date, Model model) throws IOException {
         String getKeyword = keywordAddressMap.get(keyword);
         String getDetailKeyword = detailKeywordAddressMap.get(detailKeyword);

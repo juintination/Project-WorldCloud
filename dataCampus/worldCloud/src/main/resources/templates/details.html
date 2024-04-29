@@ -206,7 +206,7 @@
         <!-- About Section Heading-->
         <div class="container"></div>
         <h2>소주제를 입력하세요 !</h2>
-        <form id="generateForm" action="/generate" method="post">
+        <form id="generateForm" action="/result" method="post">
           <input type="hidden" name="keyword" th:value="${selectedKeyword}" />
           <div class="radio-group">
             <th:block th:each="detail : ${detailKeywords}">
